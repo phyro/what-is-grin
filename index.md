@@ -9,3 +9,5 @@ The purpose of this series of posts is to describe how Grin works and what innov
 3. [Grin's emission schedule](./grin_emission.md)
 
 New content might be added over time.
+
+_Thanks to John Tromp for the review and valuable input._

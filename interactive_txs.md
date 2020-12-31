@@ -21,11 +21,11 @@ A Mimblewimble transaction has a bit different flow which is a more generalized 
 
 This is a bit different because we have parties signing for the inputs and outputs that they own in a transaction. A transaction where Alice sends money to Bob looks like
 
-![grin_generalized_tx](https://i.imgur.com/QOwiG0x.jpg)
+![grin_generalized_tx](https://i.imgur.com/jWODNYc.png)
 
 I've colored green the data that is signed by the sender and red the data that is signed by the receiver. The kernel here is the transaction metadata and is signed by both parties. What is interesting here is that the receiver needs to agree to receive the outputs and confirms that they know how much they will receive. This is a very important detail because it allows the receiver to say no to people sending them money which can avoid a whole class of known attacks called dust attacks where people send you outputs with small amounts in order to try to trace your transactions. This interactive flow also allows the receiver to contribute their own inputs like can be seen below
 
-![grin_generalized_tx2](https://i.imgur.com/rWCliBz.jpg)
+![grin_generalized_tx2](https://i.imgur.com/wkuY2I6.png)
 
 A transaction where the receiver also contributes an input is known as a [PayJoin](https://en.bitcoin.it/wiki/PayJoin) which helps obfuscate the sender's inputs and makes it less clear in which direction the money is flowing. PayJoin transactions are one way to break the [common input ownership heuristic](https://en.bitcoin.it/wiki/Privacy#Common-input-ownership_heuristic).
 

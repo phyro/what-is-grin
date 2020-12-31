@@ -6,6 +6,6 @@ The Bitcoin emission model is exponential because the halvings are an exponentia
 
 Grin's emission model is the first that emulates time perfectly. The reason why Bitcoin can't do this is because time is a linear function and we've shown that Bitcoin emission is an exponential function so you can't really have a mapping to time from it. Grin not only has a linear emission, but the emission is modelled to be 1 Grin per second which allows us to think of time as value. People already intuitively know that time is valuable, but we've never had a global shared time. We do now with Grin. Exchanging Grin can be thought of as buying/selling time or exchanging time intervals. Time is infinite but predictable which is why it looks like a great choice for an emission model. It also discourages hoarding coins in the first years which might help get us to a more fair coin distribution. It also rewards the miners with the same amount of time reward (60 Grin per block) regardless whether they mined a block in the first year or in the next decade.
 
-![grin time](https://i.imgur.com/uwLAr8g.png)
+![grin time](https://i.imgur.com/mDXtLVt.png)
 
 You can read more about the emission on the official [Monetary policy docs](https://github.com/mimblewimble/docs/wiki/Monetary-Policy).

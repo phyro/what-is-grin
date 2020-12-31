@@ -24,7 +24,7 @@ _Note: A kernel is a very small piece of data ~100 bytes that contains only a `r
 
 Let's take a look at one transaction on Grin:
 
-![Image of a Grin transaction](https://i.imgur.com/JVrlwVE.jpeg)
+![Image of a Grin transaction](https://i.imgur.com/XvNIZ0x.png)
 
 As we can see from the picture, this is a transaction that has a single input, two outputs and a kernel that pays 0.011 fee. A person that observed this transaction can't tell who the sender or the receiver is or what amounts any of the inputs and outputs hold. They could know this if they had some metadata about the inputs and outputs, but it's impossible to tell just by looking at the transaction.
 
@@ -34,11 +34,11 @@ Grin allows us to concatenate two transaction to obtain a single transaction. We
 
 Let's say we have the following two transactions
 
-![Tx aggregation 1](https://i.imgur.com/DEK329f.jpg)
+![Tx aggregation 1](https://i.imgur.com/qsZIQWj.png)
 
 We can aggregate them to obtain a new transaction that cannot be deaggregated into two transactions (we can do it since we have seen the transactions prior to their aggregation).
 
-![Tx aggregation 2](https://i.imgur.com/dxxswG1.jpg)
+![Tx aggregation 2](https://i.imgur.com/CeCAxvO.png)
 
 We have a single transaction now. Notice that the inputs, outputs and kernels have shuffled their order a bit. This is because they are sorted ascendingly in order to prevent guessing which could be a part of the same transaction e.g. if we simply added them at the end, then the last two outputs and the last input would likely be from the same transaction. We also have two kernels now and this is fine because a transaction has a `set` of kernels and when we aggregate two valid transactions, their kernels will serve as a proof that the transaction is valid - we need both kernels to prove the validity of this aggregated transaction. Since the result is just another Grin transaction, we can aggregate it with a new transaction to get an even bigger transaction - we can repeat this aggregation process as many times as we like.
 
@@ -50,17 +50,17 @@ In Bitcoin, the new nodes joining the network need to download the history of al
 
 Let's say we have the following transaction
 
-![Image of a Grin transaction](https://i.imgur.com/JVrlwVE.jpeg)
+![Image of a Grin transaction](https://i.imgur.com/XF2YEc0.png)
 
 Let's now consider another transaction that spends one of the outputs from the first transaction
 
-![Image of a Grin tx spending a the output of a previous transaction](https://i.imgur.com/av1z9oW.jpeg)
+![Image of a Grin tx spending a the output of a previous transaction](https://i.imgur.com/EmM3DeZ.png)
 
 We now aggregate the two transactions together to get
 
-![Image of Grin cut-through](https://i.imgur.com/OgsQtUS.jpg)
+![Image of Grin cut-through](https://i.imgur.com/PHVOBqj.png)
 
-Huh? Not what we expect is it? Where did the green input and output disappear?! Turns out that when an output is spent, we can delete the matching input and output and forget about them all together as if they never existed and the transaction is still valid! This means that we can spend and forget even before the transaction gets registered on the blockchain. This process of reducing a transaction to a simpler one where we remove the matching inputs and outputs is called _transaction cut-through_ and was first introduced on [Bitcointalk forum by Greg Maxwell](https://bitcointalk.org/index.php?topic=281848.0). We have already learned that the block is a single transaction so we can forget the existence of the matching inputs and outputs before we publish the block, and in fact, Grin does not consider a block valid unless a cut-through has been done.
+Huh? Not what we expected is it? Where did the green input and output disappear?! Turns out that when an output is spent, we can delete the matching input and output and forget about them all together as if they never existed and the transaction is still valid! This means that we can spend and forget even before the transaction gets registered on the blockchain. This process of reducing a transaction to a simpler one where we remove the matching inputs and outputs is called _transaction cut-through_ and was first introduced on [Bitcointalk forum by Greg Maxwell](https://bitcointalk.org/index.php?topic=281848.0). We have already learned that the block is a single transaction so we can forget the existence of the matching inputs and outputs before we publish the block, and in fact, Grin does not consider a block valid unless a cut-through has been done.
 
 And we have finally arrived at the moment where we'll see the real magic.
 
@@ -68,11 +68,11 @@ And we have finally arrived at the moment where we'll see the real magic.
 
 As I mentioned at the beginning, the whole Grin blockchain is a single big transaction. We already know that each block is a single transaction, so we can align all the sequential blocks transaction together. Since we know that given any two transactions we can aggregate them together to get a new valid transaction, we can just aggregate all the block transactions into a single big transaction. But since this transaction contains the whole blockchain history, it means that every spent input in a transaction will have a matching output where it was created, the exception being the coinbase inputs (they're the only inputs that don't have a matching output!) and the outputs that have not been spent yet. This means that every input and spent output in the history of the chain can be completely forgotten, we just need to keep the kernels for all the transactions! If we were to validate this cut-through transaction that contained the whole blockchain history, it would be valid. In fact, this is exactly the data that a new node needs in order to sync to the network. The initial sync is nothing more than the download of this one big transaction and the validation of it.
 
-![Grin block txs](https://i.imgur.com/2gv0sTo.jpg)
+![Grin block txs](https://i.imgur.com/K4tI3yc.png)
 
 I have colored the outputs that have not been spent yet with a more solid color. After we do the cut-through on the whole blockchain we get the following transaction
 
-![Grin blockchain tx](https://i.imgur.com/ev6JOk0.jpeg)
+![Grin blockchain tx](https://i.imgur.com/2iFif7S.png)
 
 > and voilá! is again a valid transaction.
 

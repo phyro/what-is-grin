@@ -82,7 +82,7 @@ As mentioned above, when we do the cut-through on the transaction obtained from 
 
 There are different technologies that try to achieve a better privacy compared to Bitcoin. Most of the technologies that do so come at a cost of increased chain size. Mimblewimble is the first approach that improves the privacy of the base layer without worsening its scalability. In fact, we end up with a blockchain that is smaller in size than Bitcoin! Here's a chart comparing different privacy technologies and showing how they affect the size of the blockchain.
 
-![chain_comparison_chart](https://i.imgur.com/7GKWuOh.jpg)
+![chain_comparison_chart](https://i.imgur.com/lT2SgQp.jpg)
 
 The only information that Mimblewimble leaks is the input-output linkability. Mimblewimble has two tools at disposal that could help obfuscate the transaction graph. The first is the ability to freely aggregate transactions which opens up possibilities for services that aggregate the transactions. Given enough volume, Mimblewimble could provide a similar decoy privacy as RingCT, but with some required trust towards the service - hopefully in the future there will be trustless alternatives available. The other tool that still needs research is the possibility of adding decoy outputs to a transaction. These decoy outputs come for free as they don't add any size to the blockchain in the long term because they are a special case that does not need the proof to be expressed as a kernel that needs to stay on the chain.
 
